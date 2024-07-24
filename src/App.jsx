@@ -2,9 +2,9 @@ import { useState } from "react";
 import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [todos, setTodos] = useState(["Personal", "Work", "Homework"]);
-  const [newOption, setNewOption] = useState("");
+  const [isOpen, setIsOpen] = useState(false); // State to toggle the dropdown menu
+  const [todos, setTodos] = useState(["Personal", "Work", "Homework"]); // State to store the list of tasks
+  const [newOption, setNewOption] = useState(""); // State to manage the new task input field
   const colors = [
     "bg-pink-500",
     "bg-blue-500",
@@ -15,6 +15,7 @@ function App() {
     "bg-slate-500",
   ];
 
+  // Handler function to add a new task to the list
   const handleAddOption = () => {
     if (newOption.trim() !== "") {
       setTodos((prevOptions) => [...prevOptions, newOption]);
@@ -22,6 +23,7 @@ function App() {
     }
   };
 
+  // Handler function to toggle the visibility of the dropdown menu
   const handleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -30,6 +32,7 @@ function App() {
     <>
       <div className="flex items-center justify-center bg-gray-100 h-max">
         <div className="w-4/5 p-6 text-black bg-white rounded-lg shadow-xl min-h-[800px] card">
+          {/* User Profile Section */}
           <div className="w-1/4">
             <div className="flex items-center mb-4">
               <div className="relative">
@@ -51,7 +54,10 @@ function App() {
             <div className="h-1 mx-2 my-6 bg-pink-400 rounded-full w-44"></div>
             <div className="relative my-32"></div>
           </div>
+
+          {/* Tasks Section */}
           <div className="relative flex flex-col items-start">
+            {/* Button to toggle the dropdown */}
             <button
               className="relative flex my-8 text-xl font-extrabold transition duration-300 ease-in-out delay-150 left-10 hover:-translate-1 hover:scale-110"
               onClick={handleDropdown}
@@ -68,6 +74,8 @@ function App() {
                 <AiOutlineCaretUp className="h-8 ml-2" />
               )}
             </button>
+
+            {/* Dropdown menu for tasks */}
             <div
               className={`relative flex flex-col items-start transition-all duration-300 ease-in-out ${
                 isOpen
@@ -75,6 +83,7 @@ function App() {
                   : "opacity-0 max-h-0 overflow-hidden"
               }`}
             >
+              {/* Render tasks */}
               {todos.map((todo, i) => (
                 <div key={i} className="relative flex px-2 py-4 left-24">
                   <span
@@ -85,6 +94,8 @@ function App() {
                   </button>
                 </div>
               ))}
+
+              {/* Input field and button to add a new task */}
               <div className="flex flex-col mt-4 mb-8">
                 <input
                   type="text"
@@ -101,6 +112,8 @@ function App() {
                 </button>
               </div>
             </div>
+
+            {/* Buttons for Scheduled Tasks and Settings */}
             <div className="mt-4 mb-8">
               <button className="relative flex mt-20 text-xl font-extrabold transition duration-300 ease-in-out delay-150 left-10 hover:-translate-1 hover:scale-110">
                 <img
@@ -122,7 +135,7 @@ function App() {
               </button>
             </div>
           </div>
-          {/* Make side panels */}
+          {/* Placeholder for potential side panels */}
         </div>
       </div>
     </>
