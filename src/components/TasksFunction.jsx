@@ -3,7 +3,7 @@ import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 
 const TasksFunction = () => {
   const [isOpen, setIsOpen] = useState(false); // State to toggle the dropdown menu
-  const [todos, setTodos] = useState(["Personal", "Work", "Homework"]); // State to store the list of tasks
+  const [todos, setTodos] = useState(["Personal", "Work", "Chores"]); // State to store the list of tasks
   const [newOption, setNewOption] = useState(""); // State to manage the new task input field
   const colors = [
     "bg-pink-500",
@@ -28,6 +28,10 @@ const TasksFunction = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleSchedule = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-4/5 p-6 text-black bg-white rounded-lg shadow-xl min-h-[800px] flex">
@@ -49,10 +53,10 @@ const TasksFunction = () => {
                 alt="User"
               />
               <div className="flex flex-col ml-3 ">
-                <h1 className="flex text-xl font-semibold cursor-pointer hover:bg-gray-100">
+                <h1 className="flex text-xl font-semibold transition duration-300 ease-in-out delay-150 cursor-pointer hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
                   Your Username
                 </h1>
-                <h2 className="text-gray-500 cursor-pointer w-44 text-md hover:bg-gray-100">
+                <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
                   Account Details
                 </h2>
               </div>
@@ -104,6 +108,7 @@ const TasksFunction = () => {
               {/* Input field and button to add a new task */}
               <div className="flex flex-col mt-4 mb-8">
                 <input
+                  maxLength={20}
                   type="text"
                   value={newOption}
                   onChange={(e) => setNewOption(e.target.value)}
@@ -112,7 +117,7 @@ const TasksFunction = () => {
                 />
                 <button
                   onClick={handleAddOption}
-                  className="w-24 h-8 px-4 py-2 my-2 ml-20 text-[12px] text-white bg-blue-500 rounded"
+                  className="w-24 h-8 my-2 ml-20 text-[12px] text-white bg-black rounded-lg tracking-wider border-4 border-transparent active:border-white duration-300"
                 >
                   Add Filter
                 </button>
@@ -121,7 +126,10 @@ const TasksFunction = () => {
 
             {/* Buttons for Scheduled Tasks and Settings */}
             <div className="mt-4 mb-8">
-              <button className="relative flex mt-20 text-xl font-extrabold transition duration-300 ease-in-out delay-150 left-10 hover:-translate-1 hover:scale-110">
+              <button
+                onClick={handleSchedule}
+                className="relative flex mt-20 text-xl font-extrabold transition duration-300 ease-in-out delay-150 left-10 hover:-translate-1 hover:scale-110"
+              >
                 <img
                   className="w-10 h-8 mr-4"
                   src="https://logowik.com/content/uploads/images/calendar5662.jpg"
