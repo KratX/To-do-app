@@ -188,118 +188,16 @@ const TasksFunction = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
+          <div className="flex justify-between w-[90%] h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
             <div className="flex my-2 text-black todo">
-              <span className="w-3 h-3 mx-4 my-[6px] bg-red-500 rounded-full"></span>
-              Lorem ipsum dolor sit amet consectetur adipisicing edit
+              <span className="flex-shrink-0 w-3 h-3 mx-4 my-auto bg-red-500 rounded-full"></span>
+              lorem
             </div>
             <div className="flex my-auto">
-              <button className="w-10 h-10 mx-1">
+              <button className="w-10 h-10 ml-2">
                 <img src="../src/assets/edit.svg" alt="edit" />
               </button>
-              <button className="w-9 h-9">
-                <img src="../src/assets/delete.svg" alt="edit" />
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
-            <div className="flex my-2 text-black todo">
-              <span className="w-3 h-3 mx-4 my-[6px] bg-red-500 rounded-full"></span>
-              Lorem ipsum dolor sit amet consectetur adipisicing edit lorem44
-            </div>
-            <div className="flex my-auto">
-              <button className="w-10 h-10 mx-1">
-                <img src="../src/assets/edit.svg" alt="edit" />
-              </button>
-              <button className="w-9 h-9">
-                <img src="../src/assets/delete.svg" alt="edit" />
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
-            <div className="flex my-2 text-black todo">
-              <span className="w-3 h-3 mx-4 my-[6px]  bg-red-500 rounded-full"></span>
-              Lorem ipsum dolor sit amet con Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Numq Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Velit, voluptatum? Velit, libero
-              dolorum cupiditate vel recusandae culpa. Modi velit autem minus,
-              ipsum assumenda rerum cupiditate vel adipisci culpa ipsa delectus
-              suscipit architecto in esse atque facere molestiae, eveniet at!
-              Laboriosam cupiditate ratione similique! Officia quidem asperiores
-              delectus voluptates voluptas veritatis accusamus facilis ad
-              excepturi exercitationem?
-            </div>
-            <div className="flex my-auto">
-              <button className="w-10 h-10 mx-1">
-                <img src="../src/assets/edit.svg" alt="edit" />
-              </button>
-              <button className="w-9 h-9">
-                <img src="../src/assets/delete.svg" alt="edit" />
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
-            <div className="flex my-2 text-black todo">
-              <span className="w-3 h-3 mx-4 my-[6px] bg-red-500 rounded-full"></span>
-              Lorem ipsum dolor sit amet con Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Numq Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Velit, voluptatum? Velit, libero
-              dolorum cupiditate vel recusandae culpa. Modi velit autem minus,
-              ipsum assumenda rerum cupiditate vel adipisci culpa ipsa delectus
-              suscipit architecto in esse atque facere molestiae, eveniet at!
-              Laboriosam cupiditate ratione similique! Officia quidem asperiores
-              delectus voluptates voluptas veritatis accusamus facilis ad
-              excepturi exercitationem?
-            </div>
-            <div className="flex my-auto">
-              <button className="w-10 h-10 mx-1">
-                <img src="../src/assets/edit.svg" alt="edit" />
-              </button>
-              <button className="w-9 h-9">
-                <img src="../src/assets/delete.svg" alt="edit" />
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
-            <div className="flex my-2 text-black todo">
-              <span className="w-3 h-3 mx-4 my-[6px] bg-red-500 rounded-full"></span>
-              Lorem ipsum dolor sit amet con Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Numq Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Velit, voluptatum? Velit, libero
-              dolorum cupiditate vel recusandae culpa. Modi velit autem minus,
-              ipsum assumenda rerum cupiditate vel adipisci culpa ipsa delectus
-              suscipit architecto in esse atque facere molestiae, eveniet at!
-              Laboriosam cupiditate ratione similique! Officia quidem asperiores
-              delectus voluptates voluptas veritatis accusamus facilis ad
-              excepturi exercitationem?
-            </div>
-            <div className="flex my-auto">
-              <button className="w-10 h-10 mx-1">
-                <img src="../src/assets/edit.svg" alt="edit" />
-              </button>
-              <button className="w-9 h-9">
-                <img src="../src/assets/delete.svg" alt="edit" />
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
-            <div className="flex my-2 text-black todo">
-              <span className="w-3 h-3 mx-4 my-[6px] bg-red-500 rounded-full"></span>
-              Lorem ipsum dolor sit amet con Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Numq Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Velit, voluptatum? Velit, libero
-              dolorum cupiditate vel recusandae culpa. Modi velit autem minus,
-              ipsum assumenda rerum cupiditate vel adipisci culpa ipsa delectus
-              suscipit architecto in esse atque facere molestiae, eveniet at!
-              Laboriosam cupiditate ratione similique! Officia quidem asperiores
-              delectus voluptates voluptas veritatis accusamus facilis ad
-              excepturi exercitationem?
-            </div>
-            <div className="flex my-auto">
-              <button className="w-10 h-10 mx-1">
-                <img src="../src/assets/edit.svg" alt="edit" />
-              </button>
-              <button className="w-9 h-9">
+              <button className="h-4 mt-1 mr-4 w-7">
                 <img src="../src/assets/delete.svg" alt="edit" />
               </button>
             </div>
