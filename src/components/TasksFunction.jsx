@@ -2,9 +2,10 @@ import { useState } from "react";
 import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 
 const TasksFunction = () => {
-  const [isOpen, setIsOpen] = useState(false); // State to toggle the dropdown menu
-  const [todos, setTodos] = useState(["Personal", "Work", "Chores"]); // State to store the list of tasks
-  const [newOption, setNewOption] = useState(""); // State to manage the new task input field
+  const [isOpen, setIsOpen] = useState(false);
+  const [filter, setFilter] = useState(["Personal", "Work", "Chores"]);
+  // const [todos, setTodos] = useState([]);
+  const [newOption, setNewOption] = useState("");
   const colors = [
     "bg-pink-500",
     "bg-blue-500",
@@ -15,15 +16,13 @@ const TasksFunction = () => {
     "bg-slate-500",
   ];
 
-  // Handler function to add a new task to the list
   const handleAddOption = () => {
     if (newOption.trim() !== "") {
-      setTodos((prevOptions) => [...prevOptions, newOption]);
-      setNewOption(""); // Clear input field
+      setFilter((prevOptions) => [...prevOptions, newOption]);
+      setNewOption("");
     }
   };
 
-  // Handler function to toggle the visibility of the dropdown menu
   const handleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -67,7 +66,6 @@ const TasksFunction = () => {
 
           {/* Tasks Section */}
           <div className="relative flex flex-col items-start">
-            {/* Button to toggle the dropdown */}
             <button
               className="relative flex my-8 text-xl font-extrabold transition duration-300 ease-in-out delay-150 left-10 hover:-translate-1 hover:scale-110"
               onClick={handleDropdown}
@@ -85,7 +83,6 @@ const TasksFunction = () => {
               )}
             </button>
 
-            {/* Dropdown menu for tasks */}
             <div
               className={`relative flex flex-col items-start transition-all duration-300 ease-in-out ${
                 isOpen
@@ -93,8 +90,7 @@ const TasksFunction = () => {
                   : "opacity-0 max-h-0 overflow-hidden"
               }`}
             >
-              {/* Render tasks */}
-              {todos.map((todo, i) => (
+              {filter.map((todo, i) => (
                 <div key={i} className="relative flex px-2 py-4 left-24">
                   <span
                     className={`w-4 h-4 mx-4 my-2 ${colors[i % colors.length]} rounded-full inline-block`}
@@ -105,7 +101,6 @@ const TasksFunction = () => {
                 </div>
               ))}
 
-              {/* Input field and button to add a new task */}
               <div className="flex flex-col mt-4 mb-8">
                 <input
                   maxLength={20}
@@ -124,7 +119,6 @@ const TasksFunction = () => {
               </div>
             </div>
 
-            {/* Buttons for Scheduled Tasks and Settings */}
             <div className="mt-4 mb-8">
               <button
                 onClick={handleSchedule}
@@ -152,8 +146,164 @@ const TasksFunction = () => {
         </div>
 
         {/* Side Content */}
-        <div className="w-3/4 p-6 bg-gray-200">
-          <h2 className="text-xl font-bold">Helloo</h2>
+        <div className="w-3/4 p-6 bg-purple-200">
+          <h1 className="mt-10 ml-20 text-2xl font-extrabold text-black">
+            Today&apos;s Tasks
+          </h1>
+          <div className="relative flex flex-col items-center">
+            <div className="relative w-3/4">
+              <span className="absolute flex items-center space-x-2 left-4 top-12">
+                <span className="w-3 h-3 bg-red-500 rounded-full"></span>
+                <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
+                <span className="w-3 h-3 bg-green-500 rounded-full"></span>
+              </span>
+
+              <input
+                className="w-full p-2 mt-6 font-bold text-black bg-white px-28 h-14 rounded-2xl"
+                type="text"
+                placeholder="What is your new task?"
+              />
+              <span>
+                <span>
+                  <button>
+                    <img
+                      className="absolute w-6 h-6 bg-white bottom-[58px] right-16"
+                      src="https://static-00.iconduck.com/assets.00/clock-icon-1024x1024-6y43zsm6.png"
+                      alt="time"
+                    />
+                  </button>
+                  <button>
+                    <img
+                      className="absolute w-10 h-8 bg-white bottom-14 right-4"
+                      src="https://logowik.com/content/uploads/images/calendar5662.jpg"
+                      alt="date"
+                    />
+                  </button>
+                </span>
+              </span>
+              <div className="flex flex-col items-end">
+                <button className="w-20 h-7 mt-4 text-[12px] text-white bg-slate-600 rounded-lg tracking-wider border-4 border-transparent active:border-white duration-300">
+                  Add Task
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
+            <div className="flex my-2 text-black todo">
+              <span className="w-3 h-3 mx-4 my-[6px] bg-red-500 rounded-full"></span>
+              Lorem ipsum dolor sit amet consectetur adipisicing edit
+            </div>
+            <div className="flex my-auto">
+              <button className="w-10 h-10 mx-1">
+                <img src="../src/assets/edit.svg" alt="edit" />
+              </button>
+              <button className="w-9 h-9">
+                <img src="../src/assets/delete.svg" alt="edit" />
+              </button>
+            </div>
+          </div>
+          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
+            <div className="flex my-2 text-black todo">
+              <span className="w-3 h-3 mx-4 my-[6px] bg-red-500 rounded-full"></span>
+              Lorem ipsum dolor sit amet consectetur adipisicing edit lorem44
+            </div>
+            <div className="flex my-auto">
+              <button className="w-10 h-10 mx-1">
+                <img src="../src/assets/edit.svg" alt="edit" />
+              </button>
+              <button className="w-9 h-9">
+                <img src="../src/assets/delete.svg" alt="edit" />
+              </button>
+            </div>
+          </div>
+          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
+            <div className="flex my-2 text-black todo">
+              <span className="w-3 h-3 mx-4 my-[6px]  bg-red-500 rounded-full"></span>
+              Lorem ipsum dolor sit amet con Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Numq Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Velit, voluptatum? Velit, libero
+              dolorum cupiditate vel recusandae culpa. Modi velit autem minus,
+              ipsum assumenda rerum cupiditate vel adipisci culpa ipsa delectus
+              suscipit architecto in esse atque facere molestiae, eveniet at!
+              Laboriosam cupiditate ratione similique! Officia quidem asperiores
+              delectus voluptates voluptas veritatis accusamus facilis ad
+              excepturi exercitationem?
+            </div>
+            <div className="flex my-auto">
+              <button className="w-10 h-10 mx-1">
+                <img src="../src/assets/edit.svg" alt="edit" />
+              </button>
+              <button className="w-9 h-9">
+                <img src="../src/assets/delete.svg" alt="edit" />
+              </button>
+            </div>
+          </div>
+          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
+            <div className="flex my-2 text-black todo">
+              <span className="w-3 h-3 mx-4 my-[6px] bg-red-500 rounded-full"></span>
+              Lorem ipsum dolor sit amet con Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Numq Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Velit, voluptatum? Velit, libero
+              dolorum cupiditate vel recusandae culpa. Modi velit autem minus,
+              ipsum assumenda rerum cupiditate vel adipisci culpa ipsa delectus
+              suscipit architecto in esse atque facere molestiae, eveniet at!
+              Laboriosam cupiditate ratione similique! Officia quidem asperiores
+              delectus voluptates voluptas veritatis accusamus facilis ad
+              excepturi exercitationem?
+            </div>
+            <div className="flex my-auto">
+              <button className="w-10 h-10 mx-1">
+                <img src="../src/assets/edit.svg" alt="edit" />
+              </button>
+              <button className="w-9 h-9">
+                <img src="../src/assets/delete.svg" alt="edit" />
+              </button>
+            </div>
+          </div>
+          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
+            <div className="flex my-2 text-black todo">
+              <span className="w-3 h-3 mx-4 my-[6px] bg-red-500 rounded-full"></span>
+              Lorem ipsum dolor sit amet con Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Numq Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Velit, voluptatum? Velit, libero
+              dolorum cupiditate vel recusandae culpa. Modi velit autem minus,
+              ipsum assumenda rerum cupiditate vel adipisci culpa ipsa delectus
+              suscipit architecto in esse atque facere molestiae, eveniet at!
+              Laboriosam cupiditate ratione similique! Officia quidem asperiores
+              delectus voluptates voluptas veritatis accusamus facilis ad
+              excepturi exercitationem?
+            </div>
+            <div className="flex my-auto">
+              <button className="w-10 h-10 mx-1">
+                <img src="../src/assets/edit.svg" alt="edit" />
+              </button>
+              <button className="w-9 h-9">
+                <img src="../src/assets/delete.svg" alt="edit" />
+              </button>
+            </div>
+          </div>
+          <div className="flex justify-between w-3/4 h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
+            <div className="flex my-2 text-black todo">
+              <span className="w-3 h-3 mx-4 my-[6px] bg-red-500 rounded-full"></span>
+              Lorem ipsum dolor sit amet con Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Numq Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Velit, voluptatum? Velit, libero
+              dolorum cupiditate vel recusandae culpa. Modi velit autem minus,
+              ipsum assumenda rerum cupiditate vel adipisci culpa ipsa delectus
+              suscipit architecto in esse atque facere molestiae, eveniet at!
+              Laboriosam cupiditate ratione similique! Officia quidem asperiores
+              delectus voluptates voluptas veritatis accusamus facilis ad
+              excepturi exercitationem?
+            </div>
+            <div className="flex my-auto">
+              <button className="w-10 h-10 mx-1">
+                <img src="../src/assets/edit.svg" alt="edit" />
+              </button>
+              <button className="w-9 h-9">
+                <img src="../src/assets/delete.svg" alt="edit" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
