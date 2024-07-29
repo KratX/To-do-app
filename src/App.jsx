@@ -1,4 +1,4 @@
-import TasksFunction from "./components/TasksFunction";
+import TasksFunction from "./components/TaskFunction";
 
 function App() {
   return <TasksFunction />;

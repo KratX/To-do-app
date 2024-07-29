@@ -4,8 +4,11 @@ import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 const TasksFunction = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState(["Personal", "Work", "Chores"]);
-  // const [todos, setTodos] = useState([]);
+  const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState([]);
   const [newOption, setNewOption] = useState("");
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editedText, setEditedText] = useState("");
   const colors = [
     "bg-pink-500",
     "bg-blue-500",
@@ -29,6 +32,39 @@ const TasksFunction = () => {
 
   const handleSchedule = () => {
     setIsOpen(false);
+  };
+
+  const handleAdd = () => {
+    if (todo.trim() !== "") {
+      setTodos([...todos, { text: todo, completed: false }]);
+      setTodo("");
+    }
+  };
+
+  const handleEditClick = (index) => {
+    setEditingIndex(index);
+    setEditedText(todos[index].text);
+  };
+
+  const handleSaveEdit = () => {
+    if (editedText.trim() !== "") {
+      setTodos(
+        todos.map((task, i) =>
+          i === editingIndex ? { ...task, text: editedText } : task
+        )
+      );
+      setEditingIndex(null);
+      setEditedText("");
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingIndex(null);
+    setEditedText("");
+  };
+
+  const handleDelete = (index) => {
+    setTodos(todos.filter((_, i) => i !== index));
   };
 
   return (
@@ -90,13 +126,13 @@ const TasksFunction = () => {
                   : "opacity-0 max-h-0 overflow-hidden"
               }`}
             >
-              {filter.map((todo, i) => (
+              {filter.map((item, i) => (
                 <div key={i} className="relative flex px-2 py-4 left-24">
                   <span
                     className={`w-4 h-4 mx-4 my-2 ${colors[i % colors.length]} rounded-full inline-block`}
                   ></span>
                   <button className="font-bold transition duration-300 ease-in-out delay-150 hover:-translate-1 hover:scale-110">
-                    {todo}
+                    {item}
                   </button>
                 </div>
               ))}
@@ -161,47 +197,92 @@ const TasksFunction = () => {
               <input
                 className="w-full p-2 mt-6 font-bold text-black bg-white px-28 h-14 rounded-2xl"
                 type="text"
+                maxLength={90}
                 placeholder="What is your new task?"
+                value={todo}
+                onChange={(e) => setTodo(e.target.value)}
               />
               <span>
-                <span>
-                  <button>
-                    <img
-                      className="absolute w-6 h-6 bg-white bottom-[58px] right-16"
-                      src="https://static-00.iconduck.com/assets.00/clock-icon-1024x1024-6y43zsm6.png"
-                      alt="time"
-                    />
-                  </button>
-                  <button>
-                    <img
-                      className="absolute w-10 h-8 bg-white bottom-14 right-4"
-                      src="https://logowik.com/content/uploads/images/calendar5662.jpg"
-                      alt="date"
-                    />
-                  </button>
-                </span>
+                <button>
+                  <img
+                    className="absolute w-6 h-6 bg-white bottom-[58px] right-16"
+                    src="https://static-00.iconduck.com/assets.00/clock-icon-1024x1024-6y43zsm6.png"
+                    alt="time"
+                  />
+                </button>
+                <button>
+                  <img
+                    className="absolute w-10 h-8 bg-white bottom-14 right-4"
+                    src="https://logowik.com/content/uploads/images/calendar5662.jpg"
+                    alt="date"
+                  />
+                </button>
               </span>
               <div className="flex flex-col items-end">
-                <button className="w-20 h-7 mt-4 text-[12px] text-white bg-slate-600 rounded-lg tracking-wider border-4 border-transparent active:border-white duration-300">
+                <button
+                  onClick={handleAdd}
+                  className="w-20 h-7 mt-4 text-[12px] text-white bg-purple-600 rounded-lg tracking-wider border-4 border-transparent active:border-white duration-300"
+                >
                   Add Task
                 </button>
               </div>
             </div>
           </div>
-          <div className="flex justify-between w-[90%] h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl">
-            <div className="flex my-2 text-black todo">
-              <span className="flex-shrink-0 w-3 h-3 mx-4 my-auto bg-red-500 rounded-full"></span>
-              lorem
+          {todos.map((task, index) => (
+            <div
+              key={index}
+              className="flex justify-between w-[90%] h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl taskList"
+            >
+              <div className="flex my-2 text-black todo">
+                <span
+                  className={`flex-shrink-0 w-3 h-3 mx-4 my-auto ${colors[index % colors.length]} rounded-full`}
+                ></span>
+                {editingIndex === index ? (
+                  <input
+                    type="text"
+                    maxLength={90}
+                    value={editedText}
+                    onChange={(e) => setEditedText(e.target.value)}
+                    className="text-black bg-transparent border-none w-[700px]"
+                    autoFocus
+                  />
+                ) : (
+                  task.text
+                )}
+              </div>
+              <div className="flex my-auto">
+                {editingIndex === index ? (
+                  <>
+                    <button
+                      onClick={handleSaveEdit}
+                      className="mt-1 mr-3 w-7 h-7"
+                    >
+                      <img src="../src/assets/save.svg" alt="save" />
+                    </button>
+                    <button
+                      onClick={handleCancelEdit}
+                      className="mt-1 mr-3 w-7 h-7"
+                    >
+                      <img src="../src/assets/cancel.svg" alt="cancel" />
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => handleEditClick(index)}
+                    className="w-10 h-10 ml-2"
+                  >
+                    <img src="../src/assets/edit.svg" alt="edit" />
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDelete(index)}
+                  className="mt-1 mr-4 w-7 h-7"
+                >
+                  <img src="../src/assets/delete.svg" alt="delete" />
+                </button>
+              </div>
             </div>
-            <div className="flex my-auto">
-              <button className="w-10 h-10 ml-2">
-                <img src="../src/assets/edit.svg" alt="edit" />
-              </button>
-              <button className="h-4 mt-1 mr-4 w-7">
-                <img src="../src/assets/delete.svg" alt="edit" />
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
