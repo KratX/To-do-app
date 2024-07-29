@@ -17,15 +17,19 @@ const TasksFunction = () => {
   const [newOption, setNewOption] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
   const [editedText, setEditedText] = useState("");
-  const colors = [
-    "bg-pink-500",
-    "bg-blue-500",
-    "bg-orange-500",
-    "bg-red-500",
-    "bg-cyan-500",
-    "bg-green-500",
-    "bg-slate-500",
-  ];
+
+  // Define colors for each filter
+  const filterColors = {
+    All: "bg-gray-300", // Color for 'All' filter
+    Personal: "bg-pink-500",
+    Work: "bg-blue-500",
+    Chores: "bg-yellow-500", // You can change this color as needed
+  };
+
+  // Function to get color for a filter
+  const getFilterColor = (filterName) => {
+    return filterColors[filterName] || "bg-green-500"; // Default to green if filter is not in the predefined list
+  };
 
   const handleAddOption = () => {
     if (newOption.trim() !== "" && !filter.includes(newOption)) {
@@ -50,9 +54,20 @@ const TasksFunction = () => {
           ...prevTodos,
           [selectedFilter]: [
             ...prevTodos[selectedFilter],
-            { text: todo, completed: false },
+            {
+              text: todo,
+              color: getFilterColor(selectedFilter),
+              completed: false,
+            },
           ],
-          All: [...prevTodos.All, { text: todo, completed: false }],
+          All: [
+            ...prevTodos.All,
+            {
+              text: todo,
+              color: getFilterColor(selectedFilter),
+              completed: false,
+            },
+          ],
         };
         return updatedTodos;
       });
@@ -60,7 +75,7 @@ const TasksFunction = () => {
     }
   };
 
-  const handleEditClick = (index) => {
+  const handleEdit = (index) => {
     setEditingIndex(index);
     setEditedText(
       selectedFilter === "All"
@@ -168,7 +183,7 @@ const TasksFunction = () => {
               {filter.map((item, i) => (
                 <div key={i} className="relative flex px-2 py-4 left-24">
                   <span
-                    className={`w-4 h-4 mx-4 my-2 ${colors[i % colors.length]} rounded-full inline-block`}
+                    className={`w-4 h-4 mx-4 my-2 ${getFilterColor(item)} rounded-full inline-block`}
                   ></span>
                   <button
                     className={`font-bold transition duration-300 ease-in-out delay-150 hover:-translate-1 hover:scale-110 ${
@@ -274,121 +289,67 @@ const TasksFunction = () => {
           </div>
 
           <TransitionGroup className="flex flex-col items-center">
-            {selectedFilter === "All"
-              ? todos.All.map((task, index) => (
-                  <CSSTransition key={index} timeout={500} classNames="task">
-                    <div className="flex justify-between w-[90%] h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl taskList">
-                      <div className="flex my-2 text-black todo">
-                        <span
-                          className={`flex-shrink-0 w-3 h-3 mx-4 my-auto ${colors[index % colors.length]} rounded-full`}
-                        ></span>
-                        {editingIndex === index ? (
-                          <input
-                            type="text"
-                            maxLength={90}
-                            value={editedText}
-                            onChange={(e) => setEditedText(e.target.value)}
-                            className="text-black bg-transparent border-none w-[700px]"
-                            autoFocus
-                          />
-                        ) : (
-                          task.text
-                        )}
-                      </div>
-                      <div className="flex my-auto">
-                        {editingIndex === index ? (
-                          <>
-                            <button
-                              onClick={handleSaveEdit}
-                              className="mt-1 mr-3 w-7 h-7"
-                            >
-                              <img src="../src/assets/save.svg" alt="save" />
-                            </button>
-                            <button
-                              onClick={handleCancelEdit}
-                              className="mt-1 mr-3 w-7 h-7"
-                            >
-                              <img
-                                src="../src/assets/cancel.svg"
-                                alt="cancel"
-                              />
-                            </button>
-                          </>
-                        ) : (
-                          <button
-                            onClick={() => handleEditClick(index)}
-                            className="w-10 h-10 ml-2"
-                          >
-                            <img src="../src/assets/edit.svg" alt="edit" />
-                          </button>
-                        )}
-                        <button
-                          onClick={() => handleDelete(index)}
-                          className="mt-1 mr-4 w-7 h-7"
-                        >
-                          <img src="../src/assets/delete.svg" alt="delete" />
-                        </button>
-                      </div>
+            {(selectedFilter === "All" ? todos.All : todos[selectedFilter]).map(
+              (task, index) => (
+                <CSSTransition key={index} timeout={500} classNames="task">
+                  <div
+                    className="flex justify-between w-[90%] h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl taskList"
+                    style={{
+                      borderLeft: `5px solid ${task.color || getFilterColor(selectedFilter)}`, // Apply color based on task's color
+                    }}
+                  >
+                    <div className="flex my-2 text-black todo">
+                      <span
+                        className={`flex-shrink-0 w-3 h-3 mx-4 my-auto ${task.color || getFilterColor(selectedFilter)} rounded-full`}
+                      ></span>
+                      {editingIndex === index ? (
+                        <input
+                          type="text"
+                          maxLength={90}
+                          value={editedText}
+                          onChange={(e) => setEditedText(e.target.value)}
+                          className="text-black bg-transparent border-none w-[700px]"
+                          autoFocus
+                        />
+                      ) : (
+                        task.text
+                      )}
                     </div>
-                  </CSSTransition>
-                ))
-              : todos[selectedFilter].map((task, index) => (
-                  <CSSTransition key={index} timeout={500} classNames="task">
-                    <div className="flex justify-between w-[90%] h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl taskList">
-                      <div className="flex my-2 text-black todo">
-                        <span
-                          className={`flex-shrink-0 w-3 h-3 mx-4 my-auto ${colors[index % colors.length]} rounded-full`}
-                        ></span>
-                        {editingIndex === index ? (
-                          <input
-                            type="text"
-                            maxLength={90}
-                            value={editedText}
-                            onChange={(e) => setEditedText(e.target.value)}
-                            className="text-black bg-transparent border-none w-[700px]"
-                            autoFocus
-                          />
-                        ) : (
-                          task.text
-                        )}
-                      </div>
-                      <div className="flex my-auto">
-                        {editingIndex === index ? (
-                          <>
-                            <button
-                              onClick={handleSaveEdit}
-                              className="mt-1 mr-3 w-7 h-7"
-                            >
-                              <img src="../src/assets/save.svg" alt="save" />
-                            </button>
-                            <button
-                              onClick={handleCancelEdit}
-                              className="mt-1 mr-3 w-7 h-7"
-                            >
-                              <img
-                                src="../src/assets/cancel.svg"
-                                alt="cancel"
-                              />
-                            </button>
-                          </>
-                        ) : (
+                    <div className="flex my-auto">
+                      {editingIndex === index ? (
+                        <>
                           <button
-                            onClick={() => handleEditClick(index)}
-                            className="w-10 h-10 ml-2"
+                            onClick={handleSaveEdit}
+                            className="mt-1 mr-3 w-7 h-7"
                           >
-                            <img src="../src/assets/edit.svg" alt="edit" />
+                            <img src="../src/assets/save.svg" alt="save" />
                           </button>
-                        )}
+                          <button
+                            onClick={handleCancelEdit}
+                            className="mt-1 mr-3 w-7 h-7"
+                          >
+                            <img src="../src/assets/cancel.svg" alt="cancel" />
+                          </button>
+                        </>
+                      ) : (
                         <button
-                          onClick={() => handleDelete(index)}
-                          className="mt-1 mr-4 w-7 h-7"
+                          onClick={() => handleEdit(index)}
+                          className="w-10 h-10 ml-2"
                         >
-                          <img src="../src/assets/delete.svg" alt="delete" />
+                          <img src="../src/assets/edit.svg" alt="edit" />
                         </button>
-                      </div>
+                      )}
+                      <button
+                        onClick={() => handleDelete(index)}
+                        className="mt-1 mr-4 w-7 h-7"
+                      >
+                        <img src="../src/assets/delete.svg" alt="delete" />
+                      </button>
                     </div>
-                  </CSSTransition>
-                ))}
+                  </div>
+                </CSSTransition>
+              )
+            )}
           </TransitionGroup>
         </div>
       </div>
