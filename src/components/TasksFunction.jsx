@@ -255,8 +255,8 @@ const TasksFunction = () => {
 
               <input
                 className="w-full p-2 mt-6 font-bold text-black bg-white px-28 h-14 rounded-2xl"
-                type="text"
                 maxLength={90}
+                type="text"
                 placeholder="What is your new task?"
                 value={todo}
                 onChange={(e) => setTodo(e.target.value)}
@@ -264,14 +264,14 @@ const TasksFunction = () => {
               <span>
                 <button>
                   <img
-                    className="absolute w-6 h-6 bg-white bottom-[58px] right-16"
+                    className="absolute w-6 h-6 bg-white bottom-[58px] right-16 time"
                     src="https://static-00.iconduck.com/assets.00/clock-icon-1024x1024-6y43zsm6.png"
                     alt="time"
                   />
                 </button>
                 <button>
                   <img
-                    className="absolute w-10 h-8 bg-white bottom-14 right-4"
+                    className="absolute w-10 h-8 bg-white bottom-14 right-4 date"
                     src="https://logowik.com/content/uploads/images/calendar5662.jpg"
                     alt="date"
                   />
@@ -353,6 +353,48 @@ const TasksFunction = () => {
           </TransitionGroup>
         </div>
       </div>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
+      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+        Account Details
+      </h2>
     </div>
   );
 };
