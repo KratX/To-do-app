@@ -5,6 +5,7 @@ import "./TasksFunction.css"; // Import the CSS file for animations
 
 const TasksFunction = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showDateTime, setShowDateTime] = useState(false);
   const [filter, setFilter] = useState(["All", "Personal", "Work", "Chores"]);
   const [selectedFilter, setSelectedFilter] = useState("All");
   const [todo, setTodo] = useState("");
@@ -17,13 +18,15 @@ const TasksFunction = () => {
   const [newOption, setNewOption] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
   const [editedText, setEditedText] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
 
   // Define colors for each filter
   const filterColors = {
-    All: "bg-gray-300", // Color for 'All' filter
+    All: "bg-gray-300",
     Personal: "bg-pink-500",
     Work: "bg-blue-500",
-    Chores: "bg-yellow-500", // You can change this color as needed
+    Chores: "bg-yellow-500",
   };
 
   // Function to get color for a filter
@@ -49,29 +52,21 @@ const TasksFunction = () => {
 
   const handleAdd = () => {
     if (todo.trim() !== "" && selectedFilter) {
-      setTodos((prevTodos) => {
-        const updatedTodos = {
-          ...prevTodos,
-          [selectedFilter]: [
-            ...prevTodos[selectedFilter],
-            {
-              text: todo,
-              color: getFilterColor(selectedFilter),
-              completed: false,
-            },
-          ],
-          All: [
-            ...prevTodos.All,
-            {
-              text: todo,
-              color: getFilterColor(selectedFilter),
-              completed: false,
-            },
-          ],
-        };
-        return updatedTodos;
-      });
+      const newTask = {
+        text: todo,
+        date,
+        time,
+        color: getFilterColor(selectedFilter),
+        completed: false,
+      };
+      setTodos((prevTodos) => ({
+        ...prevTodos,
+        [selectedFilter]: [...prevTodos[selectedFilter], newTask],
+        All: [...prevTodos.All, newTask],
+      }));
       setTodo("");
+      setDate("");
+      setTime("");
     }
   };
 
@@ -82,6 +77,16 @@ const TasksFunction = () => {
         ? todos.All[index].text
         : todos[selectedFilter][index].text
     );
+    setDate(
+      selectedFilter === "All"
+        ? todos.All[index].date || ""
+        : todos[selectedFilter][index].date || ""
+    );
+    setTime(
+      selectedFilter === "All"
+        ? todos.All[index].time || ""
+        : todos[selectedFilter][index].time || ""
+    );
   };
 
   const handleSaveEdit = () => {
@@ -90,22 +95,30 @@ const TasksFunction = () => {
         const updatedTodos = {
           ...prevTodos,
           [selectedFilter]: prevTodos[selectedFilter].map((task, i) =>
-            i === editingIndex ? { ...task, text: editedText } : task
+            i === editingIndex
+              ? { ...task, text: editedText, date, time }
+              : task
           ),
           All: prevTodos.All.map((task, i) =>
-            i === editingIndex ? { ...task, text: editedText } : task
+            i === editingIndex
+              ? { ...task, text: editedText, date, time }
+              : task
           ),
         };
         return updatedTodos;
       });
       setEditingIndex(null);
       setEditedText("");
+      setDate("");
+      setTime("");
     }
   };
 
   const handleCancelEdit = () => {
     setEditingIndex(null);
     setEditedText("");
+    setDate("");
+    setTime("");
   };
 
   const handleDelete = (index) => {
@@ -245,6 +258,23 @@ const TasksFunction = () => {
           <h1 className="mt-10 ml-20 text-2xl font-extrabold text-black">
             Today&apos;s Tasks
           </h1>
+          {showDateTime && (
+            <div className="flex flex-row justify-end w-[97%]">
+              <input
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                className="p-2 mx-2 mt-2 font-bold text-black bg-white w-44 rounded-2xl"
+              />
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="p-2 mx-2 mt-2 font-bold text-black bg-white w-44 rounded-2xl"
+              />
+            </div>
+          )}
+
           <div className="relative flex flex-col items-center">
             <div className="relative w-3/4">
               <span className="absolute flex items-center space-x-2 left-4 top-12">
@@ -252,7 +282,6 @@ const TasksFunction = () => {
                 <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
                 <span className="w-3 h-3 bg-green-500 rounded-full"></span>
               </span>
-
               <input
                 className="w-full p-2 mt-6 font-bold text-black bg-white px-28 h-14 rounded-2xl"
                 maxLength={90}
@@ -262,21 +291,15 @@ const TasksFunction = () => {
                 onChange={(e) => setTodo(e.target.value)}
               />
               <span>
-                <button>
+                <button onClick={() => setShowDateTime(!showDateTime)}>
                   <img
-                    className="absolute w-6 h-6 bg-white bottom-[58px] right-16 time"
-                    src="https://static-00.iconduck.com/assets.00/clock-icon-1024x1024-6y43zsm6.png"
-                    alt="time"
-                  />
-                </button>
-                <button>
-                  <img
-                    className="absolute w-10 h-8 bg-white bottom-14 right-4 date"
+                    className="absolute w-10 h-8 bg-white bottom-14 right-4"
                     src="https://logowik.com/content/uploads/images/calendar5662.jpg"
                     alt="date"
                   />
                 </button>
               </span>
+
               <div className="flex flex-col items-end">
                 <button
                   onClick={handleAdd}
@@ -288,19 +311,22 @@ const TasksFunction = () => {
             </div>
           </div>
 
-          <TransitionGroup className="flex flex-col items-center">
-            {(selectedFilter === "All" ? todos.All : todos[selectedFilter]).map(
-              (task, index) => (
-                <CSSTransition key={index} timeout={500} classNames="task">
-                  <div
-                    className="flex justify-between w-[90%] h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl taskList"
-                    style={{
-                      borderLeft: `5px solid ${task.color || getFilterColor(selectedFilter)}`, // Apply color based on task's color
-                    }}
-                  >
-                    <div className="flex my-2 text-black todo">
+          <TransitionGroup component={null}>
+            {todos[selectedFilter].map((task, index) => (
+              <CSSTransition key={index} timeout={500} classNames="task-item">
+                <div
+                  key={index}
+                  className="flex justify-between w-[90%] h-auto p-2 m-auto mt-10 font-bold text-black bg-white rounded-2xl taskList"
+                  style={{
+                    borderLeft: `5px solid ${
+                      task.color || getFilterColor(selectedFilter)
+                    }`,
+                  }}
+                >
+                  <div className="flex flex-col text-black todo">
+                    <div className="flex my-2">
                       <span
-                        className={`flex-shrink-0 w-3 h-3 mx-4 my-auto ${task.color || getFilterColor(selectedFilter)} rounded-full`}
+                        className={`flex-shrink-0 w-3 h-3 mx-4 my-auto ${task.color} rounded-full`}
                       ></span>
                       {editingIndex === index ? (
                         <input
@@ -315,86 +341,49 @@ const TasksFunction = () => {
                         task.text
                       )}
                     </div>
-                    <div className="flex my-auto">
-                      {editingIndex === index ? (
-                        <>
-                          <button
-                            onClick={handleSaveEdit}
-                            className="mt-1 mr-3 w-7 h-7"
-                          >
-                            <img src="../src/assets/save.svg" alt="save" />
-                          </button>
-                          <button
-                            onClick={handleCancelEdit}
-                            className="mt-1 mr-3 w-7 h-7"
-                          >
-                            <img src="../src/assets/cancel.svg" alt="cancel" />
-                          </button>
-                        </>
-                      ) : (
-                        <button
-                          onClick={() => handleEdit(index)}
-                          className="w-10 h-10 ml-2"
-                        >
-                          <img src="../src/assets/edit.svg" alt="edit" />
-                        </button>
-                      )}
-                      <button
-                        onClick={() => handleDelete(index)}
-                        className="mt-1 mr-4 w-7 h-7"
-                      >
-                        <img src="../src/assets/delete.svg" alt="delete" />
-                      </button>
-                    </div>
+                    {task.date && (
+                      <div className="text-sm text-gray-500">
+                        {task.date} {task.time}
+                      </div>
+                    )}
                   </div>
-                </CSSTransition>
-              )
-            )}
+                  <div className="flex my-auto">
+                    {editingIndex === index ? (
+                      <>
+                        <button
+                          onClick={handleSaveEdit}
+                          className="mt-1 mr-3 w-7 h-7"
+                        >
+                          <img src="../src/assets/save.svg" alt="save" />
+                        </button>
+                        <button
+                          onClick={handleCancelEdit}
+                          className="mt-1 mr-3 w-7 h-7"
+                        >
+                          <img src="../src/assets/cancel.svg" alt="cancel" />
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => handleEdit(index)}
+                        className="w-10 h-10 ml-2"
+                      >
+                        <img src="../src/assets/edit.svg" alt="edit" />
+                      </button>
+                    )}
+                    <button
+                      onClick={() => handleDelete(index)}
+                      className="mt-1 mr-4 w-7 h-7"
+                    >
+                      <img src="../src/assets/delete.svg" alt="delete" />
+                    </button>
+                  </div>
+                </div>
+              </CSSTransition>
+            ))}
           </TransitionGroup>
         </div>
       </div>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
-      <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
-        Account Details
-      </h2>
     </div>
   );
 };
