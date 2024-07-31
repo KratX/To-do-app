@@ -1,21 +1,69 @@
-.task-enter {
+/* CSS transitions for buttons and tasks */
+.transition-enter {
   opacity: 0;
   transform: scale(0.9);
 }
-.task-enter-active {
+.transition-enter-active {
   opacity: 1;
   transform: scale(1);
   transition:
     opacity 300ms ease-in-out,
     transform 300ms ease-in-out;
 }
-.task-exit {
+.transition-exit {
   opacity: 1;
   transform: scale(1);
 }
-.task-exit-active {
+.transition-exit-active {
   opacity: 0;
   transform: scale(0.9);
+  transition:
+    opacity 300ms ease-in-out,
+    transform 300ms ease-in-out;
+}
+
+.task-item-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.task-item-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 300ms ease-in-out,
+    transform 300ms ease-in-out;
+}
+.task-item-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.task-item-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition:
+    opacity 300ms ease-in-out,
+    transform 300ms ease-in-out;
+}
+
+/* CSS transitions for date and time inputs */
+.input-transition-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.input-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 300ms ease-in-out,
+    transform 300ms ease-in-out;
+}
+.input-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.input-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
   transition:
     opacity 300ms ease-in-out,
     transform 300ms ease-in-out;

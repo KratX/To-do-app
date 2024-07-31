@@ -144,21 +144,21 @@ const TasksFunction = () => {
             <div className="flex items-center mb-4">
               <div className="relative">
                 <img
-                  className="w-10 h-10 rounded-full cursor-pointer hover:bg-gray-100"
+                  className="w-10 h-10 transition-all duration-300 ease-in-out rounded-full cursor-pointer hover:bg-gray-100"
                   src="https://cdn3.iconfinder.com/data/icons/glyphicon/64/profil-circle-512.png"
                   alt="User"
                 />
               </div>
               <img
-                className="w-20 h-12 cursor-pointer hover:bg-gray-100"
+                className="w-20 h-12 transition-all duration-300 ease-in-out cursor-pointer hover:bg-gray-100"
                 src="https://static.vecteezy.com/system/resources/previews/019/879/186/original/user-icon-on-transparent-background-free-png.png"
                 alt="User"
               />
-              <div className="flex flex-col ml-3 ">
-                <h1 className="flex text-xl font-semibold transition duration-300 ease-in-out delay-150 cursor-pointer hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+              <div className="flex flex-col ml-3">
+                <h1 className="flex text-xl font-semibold transition-all duration-300 ease-in-out cursor-pointer hover:bg-gray-100 hover:-translate-1 hover:scale-110">
                   Your Username
                 </h1>
-                <h2 className="text-gray-500 transition duration-300 ease-in-out delay-150 cursor-pointer w-44 text-md hover:bg-gray-100 left-10 hover:-translate-1 hover:scale-110">
+                <h2 className="text-gray-500 transition-all duration-300 ease-in-out cursor-pointer w-44 text-md hover:bg-gray-100 hover:-translate-1 hover:scale-110">
                   Account Details
                 </h2>
               </div>
@@ -170,7 +170,7 @@ const TasksFunction = () => {
           {/* Tasks Section */}
           <div className="relative flex flex-col items-start">
             <button
-              className="relative flex my-8 text-xl font-extrabold transition duration-300 ease-in-out delay-150 left-10 hover:-translate-1 hover:scale-110"
+              className="relative flex my-8 text-xl font-extrabold transition-all duration-300 ease-in-out hover:-translate-1 hover:scale-110"
               onClick={handleDropdown}
             >
               <img
@@ -199,7 +199,7 @@ const TasksFunction = () => {
                     className={`w-4 h-4 mx-4 my-2 ${getFilterColor(item)} rounded-full inline-block`}
                   ></span>
                   <button
-                    className={`font-bold transition duration-300 ease-in-out delay-150 hover:-translate-1 hover:scale-110 ${
+                    className={`font-bold transition-all duration-300 ease-in-out hover:-translate-1 hover:scale-110 ${
                       selectedFilter === item ? "text-blue-600" : "text-black"
                     }`}
                     onClick={() => setSelectedFilter(item)}
@@ -215,12 +215,12 @@ const TasksFunction = () => {
                   type="text"
                   value={newOption}
                   onChange={(e) => setNewOption(e.target.value)}
-                  className="w-40 h-8 p-2 ml-20 mr-2 border border-gray-300 rounded"
+                  className="w-40 h-8 p-2 ml-20 mr-2 transition-all duration-300 ease-in-out border border-gray-300 rounded"
                   placeholder="New filter..."
                 />
                 <button
                   onClick={handleAddOption}
-                  className="w-24 h-8 my-2 ml-20 text-[12px] text-white bg-black rounded-lg tracking-wider border-4 border-transparent active:border-white duration-300"
+                  className="w-24 h-8 my-2 ml-20 text-[12px] text-white bg-black rounded-lg tracking-wider border-4 border-transparent active:border-white transition-all duration-300 ease-in-out"
                 >
                   Add Filter
                 </button>
@@ -230,7 +230,7 @@ const TasksFunction = () => {
             <div className="mt-4 mb-8">
               <button
                 onClick={handleSchedule}
-                className="relative flex mt-20 text-xl font-extrabold transition duration-300 ease-in-out delay-150 left-10 hover:-translate-1 hover:scale-110"
+                className="relative flex mt-20 text-xl font-extrabold transition-all duration-300 ease-in-out hover:-translate-1 hover:scale-110"
               >
                 <img
                   className="w-10 h-8 mr-4"
@@ -241,7 +241,7 @@ const TasksFunction = () => {
               </button>
             </div>
             <div className="mt-4 mb-8">
-              <button className="relative flex my-20 text-xl font-extrabold transition duration-300 ease-in-out delay-150 left-10 hover:-translate-1 hover:scale-110">
+              <button className="relative flex my-20 text-xl font-extrabold transition-all duration-300 ease-in-out hover:-translate-1 hover:scale-110">
                 <img
                   className="w-10 h-8 mr-4"
                   src="https://logowik.com/content/uploads/images/calendar5662.jpg"
@@ -258,22 +258,27 @@ const TasksFunction = () => {
           <h1 className="mt-10 ml-20 text-2xl font-extrabold text-black">
             Today&apos;s Tasks
           </h1>
-          {showDateTime && (
+          <CSSTransition
+            in={showDateTime}
+            timeout={300}
+            classNames="input-transition"
+            unmountOnExit
+          >
             <div className="flex flex-row justify-end w-[97%]">
               <input
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="p-2 mx-2 mt-2 font-bold text-black bg-white w-44 rounded-2xl"
+                className="p-2 mx-2 mt-2 font-bold text-black transition-all duration-300 ease-in-out bg-white w-44 rounded-2xl"
               />
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="p-2 mx-2 mt-2 font-bold text-black bg-white w-44 rounded-2xl"
+                className="p-2 mx-2 mt-2 font-bold text-black transition-all duration-300 ease-in-out bg-white w-44 rounded-2xl"
               />
             </div>
-          )}
+          </CSSTransition>
 
           <div className="relative flex flex-col items-center">
             <div className="relative w-3/4">
@@ -283,7 +288,7 @@ const TasksFunction = () => {
                 <span className="w-3 h-3 bg-green-500 rounded-full"></span>
               </span>
               <input
-                className="w-full p-2 mt-6 font-bold text-black bg-white px-28 h-14 rounded-2xl"
+                className="w-full p-2 mt-6 font-bold text-black transition-all duration-300 ease-in-out bg-white px-28 h-14 rounded-2xl"
                 maxLength={90}
                 type="text"
                 placeholder="What is your new task?"
@@ -291,9 +296,12 @@ const TasksFunction = () => {
                 onChange={(e) => setTodo(e.target.value)}
               />
               <span>
-                <button onClick={() => setShowDateTime(!showDateTime)}>
+                <button
+                  className="transition-all duration-300 ease-in-out time date"
+                  onClick={() => setShowDateTime(!showDateTime)}
+                >
                   <img
-                    className="absolute w-10 h-8 bg-white bottom-14 right-4"
+                    className="absolute w-10 h-8 transition-all duration-300 ease-in-out bg-white bottom-14 right-4"
                     src="https://logowik.com/content/uploads/images/calendar5662.jpg"
                     alt="date"
                   />
@@ -303,7 +311,7 @@ const TasksFunction = () => {
               <div className="flex flex-col items-end">
                 <button
                   onClick={handleAdd}
-                  className="w-20 h-7 mt-4 text-[12px] text-white bg-purple-600 rounded-lg tracking-wider border-4 border-transparent active:border-white duration-300"
+                  className="w-20 h-7 mt-4 text-[12px] text-white bg-purple-600 rounded-lg tracking-wider border-4 border-transparent active:border-white transition-all duration-300 ease-in-out"
                 >
                   Add Task
                 </button>
@@ -334,7 +342,7 @@ const TasksFunction = () => {
                           maxLength={90}
                           value={editedText}
                           onChange={(e) => setEditedText(e.target.value)}
-                          className="text-black bg-transparent border-none w-[700px]"
+                          className="text-black bg-transparent border-none w-[700px] transition-all duration-300 ease-in-out"
                           autoFocus
                         />
                       ) : (
@@ -352,13 +360,13 @@ const TasksFunction = () => {
                       <>
                         <button
                           onClick={handleSaveEdit}
-                          className="mt-1 mr-3 w-7 h-7"
+                          className="mt-1 mr-3 transition-all duration-300 ease-in-out w-7 h-7"
                         >
                           <img src="../src/assets/save.svg" alt="save" />
                         </button>
                         <button
                           onClick={handleCancelEdit}
-                          className="mt-1 mr-3 w-7 h-7"
+                          className="mt-1 mr-3 transition-all duration-300 ease-in-out w-7 h-7"
                         >
                           <img src="../src/assets/cancel.svg" alt="cancel" />
                         </button>
@@ -366,14 +374,14 @@ const TasksFunction = () => {
                     ) : (
                       <button
                         onClick={() => handleEdit(index)}
-                        className="w-10 h-10 ml-2"
+                        className="w-10 h-10 ml-2 transition-all duration-300 ease-in-out"
                       >
                         <img src="../src/assets/edit.svg" alt="edit" />
                       </button>
                     )}
                     <button
                       onClick={() => handleDelete(index)}
-                      className="mt-1 mr-4 w-7 h-7"
+                      className="mt-1 mr-4 transition-all duration-300 ease-in-out w-7 h-7"
                     >
                       <img src="../src/assets/delete.svg" alt="delete" />
                     </button>
