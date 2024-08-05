@@ -1,7 +1,11 @@
-import TasksFunction from "./components/TasksFunction";
+import TasksFunction from "./components/TasksFunction"; // Adjust the path if necessary
 
-function App() {
-  return <TasksFunction />;
-}
+const App = () => {
+  return (
+    <div className="app-container">
+      <TasksFunction />
+    </div>
+  );
+};
 
 export default App;
